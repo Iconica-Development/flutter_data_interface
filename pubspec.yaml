@@ -1,0 +1,21 @@
+name: flutter_data_interface
+description: Generic data interface package 
+version: 1.0.0
+repository: https://github.com/Iconica-Development/flutter_data_interface
+
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mockito: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
