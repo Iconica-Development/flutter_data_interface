@@ -92,7 +92,7 @@ abstract class DataInterface {
 }
 
 /// A [DataInterface] mixin that can be combined with fake or mock objects,
-/// such as test's `Fake` or mockito's `Mock`.
+/// such as test's `Fake` or mocktail's `Mock`.
 ///
 /// It passes the [DataInterface.verify] check even though it isn't
 /// using `extends`.

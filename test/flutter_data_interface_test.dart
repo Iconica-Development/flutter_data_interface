@@ -4,7 +4,7 @@
 
 import 'package:flutter_data_interface/flutter_data_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class SamplePluginPlatform extends DataInterface {
   SamplePluginPlatform() : super(token: _token);
@@ -18,20 +18,19 @@ class SamplePluginPlatform extends DataInterface {
   }
 }
 
-class ImplementsSamplePluginPlatform extends Mock
-    implements SamplePluginPlatform {}
+class MockSamplePluginPlatform extends Mock implements SamplePluginPlatform {}
 
-class ImplementsSamplePluginPlatformUsingNoSuchMethod
+class MockSamplePluginPlatformUsingNoSuchMethod
     implements SamplePluginPlatform {
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-class ImplementsSamplePluginPlatformUsingMockPlatformInterfaceMixin extends Mock
+class MockSamplePluginPlatformUsingMockPlatformInterfaceMixin extends Mock
     with MockDataInterfaceMixin
     implements SamplePluginPlatform {}
 
-class ImplementsSamplePluginPlatformUsingFakePlatformInterfaceMixin extends Fake
+class MockSamplePluginPlatformUsingFakePlatformInterfaceMixin extends Fake
     with MockDataInterfaceMixin
     implements SamplePluginPlatform {}
 
@@ -62,11 +61,10 @@ class VerifyTokenPluginPlatform extends DataInterface {
   }
 }
 
-class ImplementsVerifyTokenPluginPlatform extends Mock
+class MockVerifyTokenPluginPlatform extends Mock
     implements VerifyTokenPluginPlatform {}
 
-class ImplementsVerifyTokenPluginPlatformUsingMockPlatformInterfaceMixin
-    extends Mock
+class MockVerifyTokenPluginPlatformUsingMockPlatformInterfaceMixin extends Mock
     with MockDataInterfaceMixin
     implements VerifyTokenPluginPlatform {}
 
@@ -83,9 +81,9 @@ class ConstVerifyTokenPluginPlatform extends DataInterface {
   }
 }
 
-class ImplementsConstVerifyTokenPluginPlatform extends DataInterface
+class MockConstVerifyTokenPluginPlatform extends DataInterface
     implements ConstVerifyTokenPluginPlatform {
-  ImplementsConstVerifyTokenPluginPlatform() : super(token: const Object());
+  MockConstVerifyTokenPluginPlatform() : super(token: const Object());
 }
 
 // Ensures that `PlatformInterface` has no instance methods. Adding an
@@ -100,26 +98,26 @@ void main() {
   group('`verify`', () {
     test('prevents implementation with `implements`', () {
       expect(() {
-        SamplePluginPlatform.instance = ImplementsSamplePluginPlatform();
+        SamplePluginPlatform.instance = MockSamplePluginPlatform();
       }, throwsA(isA<AssertionError>()));
     });
 
     test('prevents implmentation with `implements` and `noSuchMethod`', () {
       expect(() {
         SamplePluginPlatform.instance =
-            ImplementsSamplePluginPlatformUsingNoSuchMethod();
+            MockSamplePluginPlatformUsingNoSuchMethod();
       }, throwsA(isA<AssertionError>()));
     });
 
     test('allows mocking with `implements`', () {
       final SamplePluginPlatform mock =
-          ImplementsSamplePluginPlatformUsingMockPlatformInterfaceMixin();
+          MockSamplePluginPlatformUsingMockPlatformInterfaceMixin();
       SamplePluginPlatform.instance = mock;
     });
 
     test('allows faking with `implements`', () {
       final SamplePluginPlatform fake =
-          ImplementsSamplePluginPlatformUsingFakePlatformInterfaceMixin();
+          MockSamplePluginPlatformUsingFakePlatformInterfaceMixin();
       SamplePluginPlatform.instance = fake;
     });
 
@@ -138,14 +136,13 @@ void main() {
   group('`verifyToken`', () {
     test('prevents implementation with `implements`', () {
       expect(() {
-        VerifyTokenPluginPlatform.instance =
-            ImplementsVerifyTokenPluginPlatform();
+        VerifyTokenPluginPlatform.instance = MockVerifyTokenPluginPlatform();
       }, throwsA(isA<AssertionError>()));
     });
 
     test('allows mocking with `implements`', () {
       final VerifyTokenPluginPlatform mock =
-          ImplementsVerifyTokenPluginPlatformUsingMockPlatformInterfaceMixin();
+          MockVerifyTokenPluginPlatformUsingMockPlatformInterfaceMixin();
       VerifyTokenPluginPlatform.instance = mock;
     });
 
@@ -155,7 +152,7 @@ void main() {
 
     test('does not prevent `const Object()` token', () {
       ConstVerifyTokenPluginPlatform.instance =
-          ImplementsConstVerifyTokenPluginPlatform();
+          MockConstVerifyTokenPluginPlatform();
     });
   });
 }
