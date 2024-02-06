@@ -1,9 +1,10 @@
 // SPDX-FileCopyrightText: 2022 Iconica
 //
 // SPDX-License-Identifier: BSD-3-Clause
-
+///
 library plugin_platform_interface;
 
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 /// Base class for data interfaces.
@@ -11,20 +12,25 @@ import 'package:meta/meta.dart';
 /// Provides a static helper method for ensuring that data interfaces are
 /// implemented using `extends` instead of `implements`.
 ///
-/// Data interface classes are expected to have a private static token object which will be
+/// Data interface classes are expected to have a private static token object
+/// which will be
 /// be passed to [verify] along with a data interface object for verification.
 ///
 /// Sample usage:
 ///
 ///
-/// Mockito mocks of data interfaces will fail the verification, in test code only it is possible
-/// to include the [MockDataInterfaceMixin] for the verification to be temporarily disabled. See
-/// [MockDataInterfaceMixin] for a sample of using Mockito to mock a data interface.
+/// Mockito mocks of data interfaces will fail the verification, in test code
+/// only it is possible
+/// to include the [MockDataInterfaceMixin] for the verification to be
+/// temporarily disabled. See
+/// [MockDataInterfaceMixin] for a sample of using Mockito to mock a data
+/// interface.
 abstract class DataInterface {
   /// Constructs a DataInterface, for use only in constructors of abstract
   /// derived classes.
   ///
-  /// @param token The same, non-`const` `Object` that will be passed to `verify`.
+  /// @param token The same, non-`const` `Object` that will be passed
+  /// to `verify`.
   DataInterface({required Object token}) {
     _instanceTokens[this] = token;
   }
@@ -69,14 +75,18 @@ abstract class DataInterface {
     required bool preventConstObject,
   }) {
     if (instance is MockDataInterfaceMixin) {
-      bool assertionsEnabled = false;
-      assert(() {
-        assertionsEnabled = true;
-        return true;
-      }());
+      var assertionsEnabled = false;
+      assert(
+        () {
+          assertionsEnabled = true;
+          return true;
+        }(),
+        '',
+      );
       if (!assertionsEnabled) {
         throw AssertionError(
-            '`MockDataInterfaceMixin` is not intended for use in release builds.');
+          '`MockDataInterfaceMixin` is not intended for use in release builds.',
+        );
       }
       return;
     }
@@ -86,7 +96,8 @@ abstract class DataInterface {
     }
     if (!identical(token, _instanceTokens[instance])) {
       throw AssertionError(
-          'Data interfaces must not be implemented with `implements`');
+        'Data interfaces must not be implemented with `implements`',
+      );
     }
   }
 }
