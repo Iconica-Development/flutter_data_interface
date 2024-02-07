@@ -99,26 +99,32 @@ class StaticMethodsOnlyMockPlatformInterfaceMixinTest
 void main() {
   group('`verify`', () {
     test('prevents implementation with `implements`', () {
-      expect(() {
-        SamplePluginPlatform.instance = ImplementsSamplePluginPlatform();
-      }, throwsA(isA<AssertionError>()));
+      expect(
+        () {
+          SamplePluginPlatform.instance = ImplementsSamplePluginPlatform();
+        },
+        throwsA(isA<AssertionError>()),
+      );
     });
 
     test('prevents implmentation with `implements` and `noSuchMethod`', () {
-      expect(() {
-        SamplePluginPlatform.instance =
-            ImplementsSamplePluginPlatformUsingNoSuchMethod();
-      }, throwsA(isA<AssertionError>()));
+      expect(
+        () {
+          SamplePluginPlatform.instance =
+              ImplementsSamplePluginPlatformUsingNoSuchMethod();
+        },
+        throwsA(isA<AssertionError>()),
+      );
     });
 
     test('allows mocking with `implements`', () {
-      final SamplePluginPlatform mock =
+      SamplePluginPlatform mock =
           ImplementsSamplePluginPlatformUsingMockPlatformInterfaceMixin();
       SamplePluginPlatform.instance = mock;
     });
 
     test('allows faking with `implements`', () {
-      final SamplePluginPlatform fake =
+      SamplePluginPlatform fake =
           ImplementsSamplePluginPlatformUsingFakePlatformInterfaceMixin();
       SamplePluginPlatform.instance = fake;
     });
@@ -128,23 +134,29 @@ void main() {
     });
 
     test('prevents `const Object()` token', () {
-      expect(() {
-        ConstTokenPluginPlatform.instance = ExtendsConstTokenPluginPlatform();
-      }, throwsA(isA<AssertionError>()));
+      expect(
+        () {
+          ConstTokenPluginPlatform.instance = ExtendsConstTokenPluginPlatform();
+        },
+        throwsA(isA<AssertionError>()),
+      );
     });
   });
 
   // Tests of the earlier, to-be-deprecated `verifyToken` method
   group('`verifyToken`', () {
     test('prevents implementation with `implements`', () {
-      expect(() {
-        VerifyTokenPluginPlatform.instance =
-            ImplementsVerifyTokenPluginPlatform();
-      }, throwsA(isA<AssertionError>()));
+      expect(
+        () {
+          VerifyTokenPluginPlatform.instance =
+              ImplementsVerifyTokenPluginPlatform();
+        },
+        throwsA(isA<AssertionError>()),
+      );
     });
 
     test('allows mocking with `implements`', () {
-      final VerifyTokenPluginPlatform mock =
+      VerifyTokenPluginPlatform mock =
           ImplementsVerifyTokenPluginPlatformUsingMockPlatformInterfaceMixin();
       VerifyTokenPluginPlatform.instance = mock;
     });
