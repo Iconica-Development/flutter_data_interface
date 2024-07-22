@@ -3,18 +3,21 @@ description: Generic data interface package
 version: 1.0.1
 repository: https://github.com/Iconica-Development/flutter_data_interface
 
+publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub
+
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  mockito: any
+  meta: ">=1.10.0 <2.0.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ">=5.4.4 <6.0.0"
   flutter_iconica_analysis:
     git:
       url: https://github.com/Iconica-Development/flutter_iconica_analysis
